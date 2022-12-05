@@ -345,11 +345,11 @@ class iti:
     def botonBuscarCodigoVuelo(self):
         db = conexion.get_db()
         codVuelo = self.codVueloBuscar.get()
-
-        itinerarios = db.itinerarios.find({"_id": codVuelo})
+        codVuelom = codVuelo.upper()
+        itinerarios = db.itinerarios.find({"_id": {"$regex": codVuelom, "$options": "i"}})
         for itin in itinerarios:
             itincod = (str.format(itin["_id"]))
-            if codVuelo == itincod:
+            if codVuelom == itincod:
                 
                 self.listadoCod.insert( "", 
                             tk.END,

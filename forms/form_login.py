@@ -15,7 +15,7 @@ class App:
         password = self.password.get()
 
         listuser = []
-        users = db.adminUser.find({"nombreUsuario":usu},{"nombreUsuario": 1, "_id": 0})
+        users = db.adminUser.find({"nombreUsuario":usum},{"nombreUsuario": 1, "_id": 0})
 
         for user in users:
             nombreu = (str.format(user["nombreUsuario"]))
@@ -30,7 +30,7 @@ class App:
                     else:
                         messagebox.showerror(message="La contraseña no es correcta",title="Mensaje")
                             
-        tusers = db.trabajadorUsers.find({"nombreUsuario":usu},{"nombreUsuario": 1, "_id": 0})
+        tusers = db.trabajadorUsers.find({"nombreUsuario":usum},{"nombreUsuario": 1, "_id": 0})
         for tuser in tusers:
             tnombreu = (str.format(tuser["nombreUsuario"]))
             listuser.append(tuser)
