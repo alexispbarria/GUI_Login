@@ -998,10 +998,10 @@ class pasajes:
     def botonVisualizarPasajePorDocumento(self):
         db = conexion.get_db()
         documento = self.pasajeDocumento.get()
-
+        listcod = []
         pasajes = db.ventaPasajes.find({"pasajeroId": {"$regex": f"^{documento}$", "$options": "$i"}})
         for pasaje in pasajes:
-            
+            listcod.append(pasaje)
             if documento == pasaje["pasajeroId"]:
                 
                 self.listado.insert( "", 
@@ -1011,17 +1011,17 @@ class pasajes:
                             
                             )
                 
-            else:
-                messagebox.showerror(message="El documento ingresado no se encuentra asociado a ningún pasaje vendido.", title="Error")
-                return
+        if len(listcod) == 0:
+            messagebox.showerror(message="El documento ingresado no se encuentra asociado a ningún pasaje vendido.", title="Error")
+            return
 
     def botonVisualizarPasajePorFecha(self):
         db = conexion.get_db()
         fecha = self.pasajeFecha.get()
-
+        listcod = []
         pasajes = db.ventaPasajes.find({"fechaVuelo": {"$regex": f"^{fecha}$", "$options": "$i"}})
         for pasaje in pasajes:
-            
+            listcod.append(pasaje)
             if fecha == pasaje["fechaVuelo"]:
                 
                 self.listado.insert( "", 
@@ -1030,10 +1030,9 @@ class pasajes:
                             values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"])
                             
                             )
-                
-            else:
-                messagebox.showerror(message="No existe un pasaje vendido para la fecha solicitada.", title="Error")
-                return
+        if len(listcod) == 0:   
+            messagebox.showerror(message="No existe un pasaje vendido para la fecha solicitada.", title="Error")
+            return
 
     def botonVisualizarPasajePorVenta(self):
         db = conexion.get_db()
@@ -1050,10 +1049,10 @@ class pasajes:
                             values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"])
                             
                             )
-                
-            else:
-                messagebox.showerror(message="El código de venta no se encuentra asociado a ningún pasaje.", title="Error")
-                return
+                return       
+        else:
+            messagebox.showerror(message="El código de venta no se encuentra asociado a ningún pasaje.", title="Error")
+            return
 
 
 #tambien se ingresa el cancelar o aceptar al eliminar
