@@ -40,7 +40,7 @@ class itinera:
         labelLogo.pack(fill=tk.X, padx=20, pady=10)
 
 
-        listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6'))
+        listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7'))
         listado.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -58,6 +58,7 @@ class itinera:
         listado.heading('#5', text="Hora de Vuelo")
         listado.heading('#6', text="Valor del Pasaje")
         listado.heading('#7', text="Asientos Disponibles")
+        listado.heading('#8', text="Estado")
 
     
 
@@ -71,7 +72,7 @@ class itinera:
             listado.insert( "", 
                             tk.END,
                             text=itinerario["_id"],
-                            values = (itinerario["origen"], itinerario["destino"], itinerario["fechaIda"], itinerario["duracion"], itinerario["horaIda"], itinerario["valorTramo"], itinerario["disponibilidad"])
+                            values = (itinerario["origen"], itinerario["destino"], itinerario["fechaIda"], itinerario["duracion"], itinerario["horaIda"], itinerario["valorTramo"], itinerario["disponibilidad"], itinerario["estadoVuelo"])
                             
                             )
             
@@ -114,7 +115,7 @@ class itinera:
         buscarCodigoVuelo.pack(fill=tk.X, padx=20, pady=20)
         buscarCodigoVuelo.bind("<Return>", (lambda event: self.botonBuscarCodigoVuelo()))
 
-        self.listadoCod = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6'))
+        self.listadoCod = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7'))
         self.listadoCod.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -131,7 +132,8 @@ class itinera:
         self.listadoCod.heading('#4', text="Duración")
         self.listadoCod.heading('#5', text="Hora de Vuelo")
         self.listadoCod.heading('#6', text="Valor del Pasaje")
-        self.listadoCod.heading('#7', text="Asientos Disponibles")       
+        self.listadoCod.heading('#7', text="Asientos Disponibles")
+        self.listadoCod.heading('#8', text="Estado")         
 
         #Volver al menú anterior
         menuAnterior = tk.Button(frame_form_access, text="Volver al Menú Anterior", font=('Times', 15, BOLD),fg='#fcfcfc', bg="#3a7ff6", command=self.abrirVisualizacionItinerarios)
@@ -182,7 +184,7 @@ class itinera:
         buscarFechaVuelo.pack(fill=tk.X, padx=20, pady=20)
         buscarFechaVuelo.bind("<Return>", (lambda event: self.botonBuscarFechaVuelo()))
 
-        self.listadoFecha = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6'))
+        self.listadoFecha = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7'))
         self.listadoFecha.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -199,7 +201,8 @@ class itinera:
         self.listadoFecha.heading('#4', text="Duración")
         self.listadoFecha.heading('#5', text="Hora de Vuelo")
         self.listadoFecha.heading('#6', text="Valor del Pasaje")
-        self.listadoFecha.heading('#7', text="Asientos Disponibles")       
+        self.listadoFecha.heading('#7', text="Asientos Disponibles")
+        self.listadoFecha.heading('#8', text="Estado")         
 
         #Volver al menú anterior
         menuAnterior = tk.Button(frame_form_access, text="Volver al Menú Anterior", font=('Times', 15, BOLD),fg='#fcfcfc', bg="#3a7ff6", command=self.abrirVisualizacionItinerarios)
@@ -414,7 +417,7 @@ class itinera:
         db = conexion.get_db()
         #Configuración básica de la ventana
         self.ventana = tk.Tk()                             
-        self.ventana.title('Eliminar Itinerario')
+        self.ventana.title('Cancelar Itinerario')
         w, h = self.ventana.winfo_screenwidth(), self.ventana.winfo_screenheight()                                    
         self.ventana.geometry("%dx%d+0+0" % (w, h))
         self.ventana.config(bg='#fcfcfc')
@@ -426,7 +429,7 @@ class itinera:
         #Frame superior, ocupado por el texto de título
         frame_form_top = tk.Frame(frame_form, height=20, bd=0, relief=tk.SOLID, bg='black')
         frame_form_top.pack (side="top", fill=tk.X)
-        title = tk.Label(frame_form_top, text= "Eliminar Itinerario", font=('Times', 30, BOLD), fg='#fcfcfc', bg="#3a7ff6", pady=50)
+        title = tk.Label(frame_form_top, text= "Cancelar Itinerario", font=('Times', 30, BOLD), fg='#fcfcfc', bg="#3a7ff6", pady=50)
         title.pack(expand=tk.NO, fill=tk.BOTH)
 
         #Botones de acceso.
@@ -438,16 +441,16 @@ class itinera:
         labelLogo.pack(fill=tk.X, padx=20, pady=10)
 
         #SOLICITUD DE LA ID DEL USUARIO A MODIFICAR
-        etiqueta_idItin = tk.Label(frame_form_access, text="Inserte ID de Vuelo a Eliminar", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        etiqueta_idItin = tk.Label(frame_form_access, text="Inserte ID de Vuelo a Cancelar", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_idItin.pack(fill=tk.X, padx=20, pady=5)
         self.idEliminarItinerario = ttk.Entry(frame_form_access, font=('Times', 14))
         self.idEliminarItinerario.pack(fill=tk.BOTH, padx=20, pady=10)
 
-        deleteItin =  tk.Button(frame_form_access, text="Eliminar Itinerario", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonEliminarItinerario)
+        deleteItin =  tk.Button(frame_form_access, text="Cancelar Itinerario", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonEliminarItinerario)
         deleteItin.pack(fill=tk.X, padx=20, pady=20)
         deleteItin.bind("<Return>", (lambda event: self.botonEliminarItinerario()))
 
-        listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6'))
+        listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7'))
         listado.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -465,6 +468,7 @@ class itinera:
         listado.heading('#5', text="Hora de Vuelo")
         listado.heading('#6', text="Valor del Pasaje")
         listado.heading('#7', text="Asientos Disponibles")
+        listado.heading('#8', text="Estado")
 
     
 
@@ -478,7 +482,7 @@ class itinera:
             listado.insert( "", 
                             tk.END,
                             text=itinerario["_id"],
-                            values = (itinerario["origen"], itinerario["destino"], itinerario["fechaIda"], itinerario["duracion"], itinerario["horaIda"], itinerario["valorTramo"], itinerario["disponibilidad"])
+                            values = (itinerario["origen"], itinerario["destino"], itinerario["fechaIda"], itinerario["duracion"], itinerario["horaIda"], itinerario["valorTramo"], itinerario["disponibilidad"], itinerario["estadoVuelo"])
                             
                             )
             
@@ -562,7 +566,7 @@ class itinera:
                 self.listadoCod.insert( "", 
                             tk.END,
                             text=itin["_id"],
-                            values = (itin["origen"], itin["destino"], itin["fechaIda"], itin["duracion"], itin["horaIda"], itin["valorTramo"], itin["disponibilidad"])
+                            values = (itin["origen"], itin["destino"], itin["fechaIda"], itin["duracion"], itin["horaIda"], itin["valorTramo"], itin["disponibilidad"], itin["estadoVuelo"])
                                 
                             )
                 return itinerarios
@@ -583,7 +587,7 @@ class itinera:
                 self.listadoFecha.insert( "", 
                             tk.END,
                             text=itin["_id"],
-                            values = (itin["origen"], itin["destino"], itin["fechaIda"], itin["duracion"], itin["horaIda"], itin["valorTramo"], itin["disponibilidad"])
+                            values = (itin["origen"], itin["destino"], itin["fechaIda"], itin["duracion"], itin["horaIda"], itin["valorTramo"], itin["disponibilidad"], itin["estadoVuelo"])
                                 
                             )
         if len(listiti) == 0:      
@@ -611,9 +615,11 @@ class itinera:
             itinID = (itin["_id"])
             Idlist.append(itinID)
 
+        listiti = []
 
         itinerarios = db.itinerarios.find({}, {"origen": 1, "fechaIda": 1, "_id":0})
         for itin in itinerarios:
+            listiti.append(itin)
             itinfecha = (str.format(itin["fechaIda"]))
             itinOrigen = (str.format(itin["origen"]))
 
@@ -636,12 +642,37 @@ class itinera:
                                 "duracion": "15 minutos",
                                 "horaIda": hora,
                                 "valorTramo": "40.000",
-                                "disponibilidad": 8
+                                "disponibilidad": 8,
+                                "estadoVuelo": "Activo"
                             })
                         messagebox.showinfo(message="Itinerario Agregado Correctamente", title="Felicidades")
                             
                         self.abrirAllItinerarios()
                         return insertarItin
+        if len(listiti) == 0:
+            idVuelo = len(Idlist)+1
+            idVuelo = (f"DAP{idVuelo}")
+            if origenc == "" or destinoc == "" or fechaVuelo == "" or hora == "":
+                messagebox.showerror(message="No se pueden insertar valores vacíos", title="Error")
+                return itinerarios
+            else:
+                insertarItin = db.itinerarios.insert_one(
+                    {
+                        "_id": idVuelo,
+                        "origen": origenc,
+                        "destino": destinoc,
+                        "fechaIda": fechaVuelo,
+                        "duracion": "15 minutos",
+                        "horaIda": hora,
+                        "valorTramo": "40.000",
+                        "disponibilidad": 8,
+                        "estadoVuelo": "Activo"
+                    })
+                messagebox.showinfo(message="Itinerario Agregado Correctamente", title="Felicidades")
+                            
+                self.abrirAllItinerarios()
+                return insertarItin
+
 
 
     def botonModOrigen(self):
@@ -678,7 +709,7 @@ class itinera:
                 self.abrirModificarItinerario()
                 return moditin, pasaje
         else:
-            messagebox.showinfo(message="El ID inrgesado no existe", title="Error")
+            messagebox.showinfo(message="El ID ingresado no existe", title="Error")
 
     def botonModDestino(self):
         db = conexion.get_db()
@@ -782,7 +813,7 @@ class itinera:
                 self.abrirModificarItinerario()
                 return moditin, pasaje
         else:
-            messagebox.showinfo(message="El ID inrgesado no existe", title="Felicidades")
+            messagebox.showinfo(message="El ID ingresado no existe", title="Felicidades")
 
     def botonModHora(self):
         db = conexion.get_db()
@@ -816,7 +847,7 @@ class itinera:
                 self.abrirModificarItinerario()
                 return moditin, pasaje
         else:
-            messagebox.showinfo(message="El ID inrgesado no existe", title="Felicidades")
+            messagebox.showinfo(message="El ID ingresado no existe", title="Felicidades")
 
 
 
@@ -834,18 +865,62 @@ class itinera:
         for itin in itinerarios:
             itinid = (str.format(itin["_id"]))
             if uidVuelo == itinid:
-                if messagebox.askokcancel(message=f"¿Seguro que quiere eliminar este itinerario {idVuelo}?", title="Título") == True:
-                    deleteitinerario = db.itinerarios.delete_one({"_id": {"$regex": uidVuelo, "$options": "i"}})
-                    itinerarios = db.itinerarios.find({"_id": uidVuelo})
-                    for pasa in pasajeros:
-                        pasajerosI = (pasa["_id"])
-                        codvuelo = (pasa["codVuelo"])
-                        if idVuelo == codvuelo:
-                            deleteitinerario = db.ventaPasajes.delete_one({"_id": pasajerosI})
-                    messagebox.showinfo(message="Itinerario Eliminado Correctamente.", title="Felicidades")
-                    self.abrirEliminarItinerario()
-                    return deleteitinerario
-                else:
-                    self.abrirEliminarItinerario()
+                vendidos = 8-itin["disponibilidad"]
+                nocuenta = "Este itinerario no cuenta con pasajes asociados, por lo que su cancelación no afectaría a ningún pasajero."
+                sicuenta = f"Este itinerario cuenta con {vendidos} pasajes asociados, su cancelación deberá ser notificada a los pasajeros."
+                decide = ""
+                if itin["disponibilidad"] < 8:
+                    decide = sicuenta
+                    if messagebox.askokcancel(message=f"¿Seguro que quiere cancelar el itinerario {idVuelo}?\n{decide}", title="Título") == True:
+                        moditin = db.itinerarios.update_one(
+                            {"_id": {"$regex": uidVuelo, "$options": "i"}},
+                            {
+                                '$set': {
+                                    "estadoVuelo": "Cancelado"
+                                }
+                            }
+                        )
+                        
+                        for pasa in pasajeros:
+                            pasajerosI = (pasa["pasajeroId"])
+                            codvuelo = (pasa["codVuelo"])
+                            if uidVuelo == codvuelo:
+                                anularPasaje = db.ventaPasajes.update_one(
+                                    {"pasajeroId": {"$regex": pasajerosI, "$options": "i"}},
+                                    {
+                                        '$set': {
+                                            "estadoPasaje": 'Anulado'
+                                        }
+                                    }
+                                )
+                        messagebox.showinfo(message="Itinerario cancelado correctamente.", title="Felicidades")
+                        self.abrirEliminarItinerario()
+                        return
+                    else:
+                        self.abrirEliminarItinerario()
+                        return
+                if itin["disponibilidad"] == 8:
+                    decide = nocuenta
+                    if messagebox.askokcancel(message=f"¿Seguro que quiere cancelar el itinerario {idVuelo}?\n{decide}", title="Título") == True:
+                        moditin = db.itinerarios.update_one(
+                            {"_id": {"$regex": uidVuelo, "$options": "i"}},
+                            {
+                                '$set': {
+                                    "estadoVuelo": "Cancelado"
+                                }
+                            }
+                        )
+                        
+                        # for pasa in pasajeros:
+                        #     pasajerosI = (pasa["_id"])
+                        #     codvuelo = (pasa["codVuelo"])
+                        #     if idVuelo == codvuelo:
+                        #         deleteitinerario = db.ventaPasajes.delete_one({"_id": pasajerosI})
+                        messagebox.showinfo(message="Itinerario cancelado correctamente.", title="Felicidades")
+                        self.abrirEliminarItinerario()
+                        return
+                    else:
+                        self.abrirEliminarItinerario()
+                        return
         else:
             messagebox.showinfo(message="Error en el id del itinerario.", title="Error")

@@ -140,7 +140,7 @@ class AdminMenus:
         labelLogo.pack(fill=tk.X, padx=20, pady=10)
 
 
-         #Visualizar Itinerarios
+        #Visualizar Itinerarios
         
         verItinerarios = tk.Button(frame_form_access, text="Visualizar Itinerarios", font=('Times', 15, BOLD),fg='#fcfcfc', bg="#3a7ff6", command=self.abrirVisualizacionItinerarios)
         verItinerarios.pack(fill=tk.X, padx=20, pady=20)
@@ -160,7 +160,7 @@ class AdminMenus:
 
         #Eliminar itinerarios
         
-        eliminarItinerario = tk.Button(frame_form_access, text="Eliminar Itinerario", font=('Times', 15, BOLD),fg='#fcfcfc', bg="#3a7ff6", command=self.abrirEliminarItinerario)
+        eliminarItinerario = tk.Button(frame_form_access, text="Cancelar Itinerario", font=('Times', 15, BOLD),fg='#fcfcfc', bg="#3a7ff6", command=self.abrirEliminarItinerario)
         eliminarItinerario.pack(fill=tk.X, padx=20, pady=20)
         eliminarItinerario.bind("<Return>", (lambda event: self.abrirEliminarItinerario()))
 

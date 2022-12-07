@@ -248,7 +248,7 @@ class pasajes:
         labelLogo.pack(fill=tk.X, padx=20, pady=10)
 
 
-        listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9'))
+        listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9', '#10'))
         listado.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -269,6 +269,7 @@ class pasajes:
         listado.heading('#8', text="Hora")
         listado.heading('#9', text="Valor")
         listado.heading('#10', text="Email")
+        listado.heading('#11', text="Estado")
         
 
     
@@ -283,7 +284,7 @@ class pasajes:
             listado.insert( "", 
                             tk.END,
                             text=pasaje["_id"],
-                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"])
+                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"], pasaje["estadoPasaje"])
                             
                             )
             
@@ -327,7 +328,7 @@ class pasajes:
         buscarPasajeCod.pack(fill=tk.X, padx=20, pady=20)
         buscarPasajeCod.bind("<Return>", (lambda event: self.botonVisualizarPasajePorCodVuelo()))
 
-        self.listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9'))
+        self.listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9', '#10'))
         self.listado.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -348,6 +349,7 @@ class pasajes:
         self.listado.heading('#8', text="Hora")
         self.listado.heading('#9', text="Valor")
         self.listado.heading('#10', text="Email")
+        self.listado.heading('#11', text="Estado")
         
 
     
@@ -395,7 +397,7 @@ class pasajes:
         buscarPasajeCod.pack(fill=tk.X, padx=20, pady=20)
         buscarPasajeCod.bind("<Return>", (lambda event: self.botonVisualizarPasajePorDocumento()))
 
-        self.listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9'))
+        self.listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9', '#10'))
         self.listado.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -416,6 +418,7 @@ class pasajes:
         self.listado.heading('#8', text="Hora")
         self.listado.heading('#9', text="Valor")
         self.listado.heading('#10', text="Email")
+        self.listado.heading('#11', text="Estado")
         
 
     
@@ -470,7 +473,7 @@ class pasajes:
         buscarPasajeCod.pack(fill=tk.X, padx=20, pady=20)
         buscarPasajeCod.bind("<Return>", (lambda event: self.botonVisualizarPasajePorFecha()))
 
-        self.listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9'))
+        self.listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9', '#10'))
         self.listado.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -491,6 +494,7 @@ class pasajes:
         self.listado.heading('#8', text="Hora")
         self.listado.heading('#9', text="Valor")
         self.listado.heading('#10', text="Email")
+        self.listado.heading('#11', text="Estado")
         
 
     
@@ -539,7 +543,7 @@ class pasajes:
         buscarPasajeCod.pack(fill=tk.X, padx=20, pady=20)
         buscarPasajeCod.bind("<Return>", (lambda event: self.botonVisualizarPasajePorVenta()))
 
-        self.listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9'))
+        self.listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9', '#10'))
         self.listado.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -560,6 +564,7 @@ class pasajes:
         self.listado.heading('#8', text="Hora")
         self.listado.heading('#9', text="Valor")
         self.listado.heading('#10', text="Email")
+        self.listado.heading('#11', text="Estado")
         
 
     
@@ -612,7 +617,7 @@ class pasajes:
         deleteVenta.pack(fill=tk.X, padx=20, pady=20)
         deleteVenta.bind("<Return>", (lambda event: self.botonAnularVenta()))
 
-        listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9'))
+        listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7', '#8', '#9', '#10'))
         listado.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -633,6 +638,7 @@ class pasajes:
         listado.heading('#8', text="Hora")
         listado.heading('#9', text="Valor")
         listado.heading('#10', text="Email")
+        listado.heading('#11', text="Estado")
         
 
     
@@ -647,7 +653,7 @@ class pasajes:
             listado.insert( "", 
                             tk.END,
                             text=pasaje["_id"],
-                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"])
+                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"], pasaje["estadoPasaje"])
                             
                             )
             
@@ -756,12 +762,12 @@ class pasajes:
                     messagebox.showerror(message="Sin disponibilidad para dicha fecha y tramo.", title="Error")
                     return verificar
                 else:
+                    
                     messagebox.showinfo(message=f"En el tramo {x['origen']}-{x['destino']} existe un total de {x['disponibilidad']} asientos disponibles.\nSu valor es de ${x['valorTramo']}", title="Felicidades")
                     self.etiqueta_documento.pack(fill=tk.X, padx=20, pady=5)
                     self.buscarDocumento.pack(fill=tk.BOTH, padx=20, pady=10)
                     self.verificarRegistroPasajero.pack(fill=tk.X, padx=20, pady=20)
-
-                    #ocultar y mostrar botón de volver atrás
+                        #ocultar y mostrar botón de volver atrás
                     self.volver.pack_forget()
                     self.volver.pack(fill=tk.X, padx=20, pady=20)
 
@@ -847,12 +853,14 @@ class pasajes:
             listnv.append(nvenID)
         nroVenta = len(listnv)+1
         nroVenta = (f"NVENTA{nroVenta}")
+        listpax = []
         pax = db.pasajeros.find({"_id": documento}, {"_id": 1, "nombre": 1, "apellido": 1, "email": 1})
         if fechaVuelo == "" or tramo == "" or documento == "":
             messagebox.showerror(message="No se pueden insertar valores vacíos", title="Error")
             return
         else:
             for x in itin:
+                listpax.append(x)
                 if x["disponibilidad"] <= 0:
                     messagebox.showerror(message="Sin disponibilidad para dicha fecha y tramo.", title="Error")
                     return itin
@@ -870,7 +878,8 @@ class pasajes:
                                 "fechaVuelo": x["fechaIda"],
                                 "horaVuelo": x["horaIda"],
                                 "valorTramo": x["valorTramo"],
-                                "email": p["email"]   
+                                "email": p["email"],
+                                "estadoPasaje": "Activo"   
                             })
 
                             #Función para modificar la disponibilidad de los vuelos, cuando haya una venta de pasajes.
@@ -939,7 +948,8 @@ class pasajes:
                             "fechaVuelo": x["fechaIda"],
                             "horaVuelo": x["horaIda"],
                             "valorTramo": x["valorTramo"],
-                            "email": email  
+                            "email": email,
+                            "estadoPasaje": "Activo"  
                             })
                             disp = db.itinerarios.update_one({
                                 "_id": x["_id"]},
@@ -972,6 +982,86 @@ class pasajes:
                             self.volver.pack(fill=tk.X, padx=20, pady=20)
                             self.abrirVisualizarTotalPasajes()
                             return pasajero, venta, disp
+            if len(listpax) == 0:
+                nombrePax = self.nuevoNombrePax.get()
+                nombrem = nombrePax.lower()
+                nombrePaxc = nombrem.capitalize()
+                #NUEVO APELLIDO                     
+                apellidoPax = self.nuevoApellidoPax.get()
+                apellidom = apellidoPax.lower()
+                apellidoPaxc = apellidom.capitalize()
+                #nueva nacionalidad                        
+                nacionalidad = self.nuevaNacionalidadPax.get()
+                #nueva fecha de nacimiento                        
+                fechaNace = self.nuevaFechaNacePax.get()
+                #nuevo genero                     
+                genero = self.nuevoGeneroPax.get()
+                #nuevo mail
+                email = self.nuevoEmailPax.get()
+                #nuevo fono
+                telefono = self.nuevoFonoPax.get()            
+
+                if nombrePaxc == "" or apellidoPaxc == "" or nacionalidad == "" or fechaNace == "" or fechaNace == "formato dd-mm-aaaa" or email == "":
+                    messagebox.showerror(message="No puede insertar valores vacíos dentro de campos obligatorios\nLos campos obligatorios cuentan con un (*) en su texto.", title="Error")
+                    return
+                else:
+                    pasajero = db.pasajeros.insert_one({
+                    "_id": documento,
+                    "nombre": nombrePaxc,
+                    "apellido": apellidoPaxc,
+                    "nacionalidad": nacionalidad,
+                    "fechaNacimiento": fechaNace,
+                    "genero": genero,
+                    "email": email,
+                    "telefono": telefono,                                
+                    })
+
+                    venta = db.ventaPasajes.insert_one({
+                    "_id": nroVenta,
+                    "nombrePax": nombrePaxc,
+                    "apellidoPax": apellidoPaxc,
+                    "pasajeroId": documento,
+                    "codVuelo": x["_id"],
+                    "origen": x["origen"],
+                    "destino": x["destino"],
+                    "fechaVuelo": x["fechaIda"],
+                    "horaVuelo": x["horaIda"],
+                    "valorTramo": x["valorTramo"],
+                    "email": email,
+                    "estadoPasaje": "Activo"  
+                    })
+                    disp = db.itinerarios.update_one({
+                        "_id": x["_id"]},
+                    {
+                        "$inc": {"disponibilidad": -1}
+                    })
+                    messagebox.showinfo(message=f"Venta agregada correctamente, verificar en pasajes vendidos.\nLos datos han sido enviados a {email}", title="Venta Correcta")
+                    correo.correollamar(nroVenta, nombrePaxc, apellidoPaxc, documento, x["_id"], x["origen"], x["destino"], x["fechaIda"], x["horaIda"], x["valorTramo"], email)
+                    
+                    self.etiqueta_documento.pack_forget()
+                    self.buscarDocumento.pack_forget()
+                    self.verificarRegistroPasajero.pack_forget()
+                    self.agregarVenta.pack_forget()
+                    self.etiqueta_nuevoNombrePax.pack_forget()               
+                    self.nuevoNombrePax.pack_forget()
+                    self.etiqueta_nuevoApellidoPax.pack_forget()
+                    self.nuevoApellidoPax.pack_forget()
+                    self.etiqueta_nuevaNacionalidadPax.pack_forget()
+                    self.nuevaNacionalidadPax.pack_forget()
+                    self.etiqueta_nuevaFechaNace.pack_forget()
+                    self.nuevaFechaNacePax.pack_forget()
+                    self.etiqueta_nuevoGenero.pack_forget()
+                    self.nuevoGeneroPax.pack_forget()
+                    self.etiqueta_nuevoEmail.pack_forget()
+                    self.nuevoEmailPax.pack_forget()
+                    self.etiqueta_nuevoFono.pack_forget()
+                    self.nuevoFonoPax.pack_forget()
+                    #ocultar y mostrar botón de volver atrás
+                    self.volver.pack_forget()
+                    self.volver.pack(fill=tk.X, padx=20, pady=20)
+                    self.abrirVisualizarTotalPasajes()
+                    return pasajero, venta, disp
+
 
     # SOLUCIONAR VERIFICACIÓN DE MAYUSCULAS
     def botonVisualizarPasajePorCodVuelo(self):
@@ -987,7 +1077,7 @@ class pasajes:
                 self.listado.insert( "", 
                             tk.END,
                             text=pasaje["_id"],
-                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"])
+                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"], pasaje["estadoPasaje"])
                             
                             )
         if len(listcod) == 0:           
@@ -1007,7 +1097,7 @@ class pasajes:
                 self.listado.insert( "", 
                             tk.END,
                             text=pasaje["_id"],
-                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"])
+                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"], pasaje["estadoPasaje"])
                             
                             )
                 
@@ -1027,7 +1117,7 @@ class pasajes:
                 self.listado.insert( "", 
                             tk.END,
                             text=pasaje["_id"],
-                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"])
+                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"], pasaje["estadoPasaje"])
                             
                             )
         if len(listcod) == 0:   
@@ -1046,7 +1136,7 @@ class pasajes:
                 self.listado.insert( "", 
                             tk.END,
                             text=pasaje["_id"],
-                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"])
+                            values = (pasaje["nombrePax"], pasaje["apellidoPax"], pasaje["pasajeroId"], pasaje["codVuelo"], pasaje["origen"], pasaje["destino"], pasaje["fechaVuelo"], pasaje["horaVuelo"], pasaje["valorTramo"], pasaje["email"], pasaje["estadoPasaje"])
                             
                             )
                 return       
@@ -1065,18 +1155,28 @@ class pasajes:
 
             if unroVenta == x["_id"]:
                 #Antes de anular la venta del pasaje, el sistema actualizará la disponibilidad del vuelo a anular, en este caso lo aumenta en 1.
-                actItin = db.itinerarios.update_one(
-                    {"_id": {"$regex": x["codVuelo"], "$options":"i"}},
-                    {
-                        '$inc': {"disponibilidad": 1}
-                    }
-                    )
+                
                 if messagebox.askokcancel(message=f"¿Seguro que quiere eliminar este pasaje {unroVenta}?", title="Título") == True:
-                    delpasaje = db.ventaPasajes.delete_one({"_id": unroVenta})
-                    messagebox.showinfo(message="Pasaje Eliminado Correctamente.", title="Felicidades")
+                    actItin = db.itinerarios.update_one(
+                        {"_id": {"$regex": x["codVuelo"], "$options":"i"}},
+                        {
+                            '$inc': {"disponibilidad": 1}
+                        }
+                    )
+                    anularPasaje = db.ventaPasajes.update_one(
+                        {"_id": {"$regex": unroVenta, "$options": "i"}},
+                        {
+                            '$set': {
+                                "estadoPasaje": 'Anulado'
+                            }
+                        }
+                    )
+                    
+                    messagebox.showinfo(message="Pasaje Anulado Correctamente.", title="Felicidades")
                     self.abrirAnularVentaPasaje()
-                    return actItin, delpasaje
+                    return 
                 else:
                     self.abrirAnularVentaPasaje()
+                    return
         else:
             messagebox.showerror(message="No existe una venta con el código ingresado.", title="Error") 

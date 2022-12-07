@@ -310,9 +310,10 @@ class User:
 
         idUser = len(listuser)+1 
         idUser = (f"User{idUser}")
-
+        listtuser = []
         tusers = db.trabajadorUsers.find({},{"nombreUsuario": 1, "_id": 0})
         for user in tusers:
+            listtuser.append(user)
             username = (str.format(user["nombreUsuario"]))
 
             if nomUsum == "" or passw == "":
@@ -336,6 +337,26 @@ class User:
                     
                     self.abrirAllUsuarios()
                     return insertarUser
+        if len(listtuser) == 0:
+            if nomUsum == "" or passw == "":
+                messagebox.showerror(message="No puede insertar valores vacíos", title="Error")
+                return tusers
+            else:
+                if len(passw) < 4:
+                    messagebox.showerror(message="La contraseña debe contener al menos 4 caracteres.", title="Error")
+                    return
+                else: 
+                    insertarUser  = db.trabajadorUsers.insert_one(
+                    {
+                        "_id": idUser,
+                        "nombreUsuario": nomUsum,
+                        "password": passw_hasheada
+                    })
+                    messagebox.showinfo(message="Usuario agregado correctamente", title="Felicidades")
+                    
+                    self.abrirAllUsuarios()
+                    return insertarUser
+
 
 
         

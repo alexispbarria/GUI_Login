@@ -94,7 +94,7 @@ class iti:
         labelLogo.pack(fill=tk.X, padx=20, pady=10)
 
 
-        listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6'))
+        listado = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7'))
         listado.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -112,6 +112,7 @@ class iti:
         listado.heading('#5', text="Hora de Vuelo")
         listado.heading('#6', text="Valor del Pasaje")
         listado.heading('#7', text="Asientos Disponibles")
+        listado.heading('#8', text="Estado")
 
     
 
@@ -125,7 +126,7 @@ class iti:
             listado.insert( "", 
                             tk.END,
                             text=itinerario["_id"],
-                            values = (itinerario["origen"], itinerario["destino"], itinerario["fechaIda"], itinerario["duracion"], itinerario["horaIda"], itinerario["valorTramo"], itinerario["disponibilidad"])
+                            values = (itinerario["origen"], itinerario["destino"], itinerario["fechaIda"], itinerario["duracion"], itinerario["horaIda"], itinerario["valorTramo"], itinerario["disponibilidad"], itinerario["estadoVuelo"])
                             
                             )
             
@@ -168,7 +169,7 @@ class iti:
         buscarCodigoVuelo.pack(fill=tk.X, padx=20, pady=20)
         buscarCodigoVuelo.bind("<Return>", (lambda event: self.botonBuscarCodigoVuelo()))
 
-        self.listadoCod = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6'))
+        self.listadoCod = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7'))
         self.listadoCod.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -185,12 +186,13 @@ class iti:
         self.listadoCod.heading('#4', text="Duración")
         self.listadoCod.heading('#5', text="Hora de Vuelo")
         self.listadoCod.heading('#6', text="Valor del Pasaje")
-        self.listadoCod.heading('#7', text="Asientos Disponibles")       
+        self.listadoCod.heading('#7', text="Asientos Disponibles")
+        self.listadoCod.heading('#8', text="Estado")         
 
         #Volver al menú anterior
         menuAnterior = tk.Button(frame_form_access, text="Volver al Menú Anterior", font=('Times', 15, BOLD),fg='#fcfcfc', bg="#3a7ff6", command=self.abrirMenuItinerarios)
         menuAnterior.pack(fill=tk.X, padx=20, pady=20)
-        menuAnterior.bind("<Return>", (lambda event: self.abrirMenuItinerarioss()))
+        menuAnterior.bind("<Return>", (lambda event: self.abrirMenuItinerarios()))
 
         self.ventana.mainloop()
 
@@ -236,7 +238,7 @@ class iti:
         buscarFechaVuelo.pack(fill=tk.X, padx=20, pady=20)
         buscarFechaVuelo.bind("<Return>", (lambda event: self.botonBuscarFechaVuelo()))
 
-        self.listadoFecha = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6'))
+        self.listadoFecha = ttk.Treeview(frame_form_access, columns=('#0', '#1', '#2', '#3', '#4', '#5', '#6', '#7'))
         self.listadoFecha.pack(fill=tk.X, padx=20, pady=5)
 
         style = ttk.Style()
@@ -253,7 +255,8 @@ class iti:
         self.listadoFecha.heading('#4', text="Duración")
         self.listadoFecha.heading('#5', text="Hora de Vuelo")
         self.listadoFecha.heading('#6', text="Valor del Pasaje")
-        self.listadoFecha.heading('#7', text="Asientos Disponibles")       
+        self.listadoFecha.heading('#7', text="Asientos Disponibles")
+        self.listadoFecha.heading('#8', text="Estado")         
 
         #Volver al menú anterior
         menuAnterior = tk.Button(frame_form_access, text="Volver al Menú Anterior", font=('Times', 15, BOLD),fg='#fcfcfc', bg="#3a7ff6", command=self.abrirMenuItinerarios)
@@ -345,21 +348,21 @@ class iti:
     def botonBuscarCodigoVuelo(self):
         db = conexion.get_db()
         codVuelo = self.codVueloBuscar.get()
-        codVuelom = codVuelo.upper()
-        itinerarios = db.itinerarios.find({"_id": {"$regex": codVuelom, "$options": "i"}})
+        ucodVuelo = codVuelo.upper()
+        itinerarios = db.itinerarios.find({"_id": {"$regex": ucodVuelo, "$options": "i"}})
         for itin in itinerarios:
             itincod = (str.format(itin["_id"]))
-            if codVuelom == itincod:
+            if ucodVuelo == itincod:
                 
                 self.listadoCod.insert( "", 
                             tk.END,
                             text=itin["_id"],
-                            values = (itin["origen"], itin["destino"], itin["fechaIda"], itin["duracion"], itin["horaIda"], itin["valorTramo"], itin["disponibilidad"])
+                            values = (itin["origen"], itin["destino"], itin["fechaIda"], itin["duracion"], itin["horaIda"], itin["valorTramo"], itin["disponibilidad"], itin["estadoVuelo"])
                                 
                             )
                 return itinerarios
-        else:   
-            messagebox.showerror(message="El código ingresado no existe.", title="Error")   
+        else:
+            messagebox.showinfo(message="El codigo de vuelo no coincide", title="Error")   
 
     def botonBuscarFechaVuelo(self):
         db = conexion.get_db()
@@ -373,7 +376,7 @@ class iti:
                 self.listadoFecha.insert( "", 
                             tk.END,
                             text=itin["_id"],
-                            values = (itin["origen"], itin["destino"], itin["fechaIda"], itin["duracion"], itin["horaIda"], itin["valorTramo"], itin["disponibilidad"])
+                            values = (itin["origen"], itin["destino"], itin["fechaIda"], itin["duracion"], itin["horaIda"], itin["valorTramo"], itin["disponibilidad"], itin["estadoVuelo"])
                                 
                             )
         if len(listiti) == 0:      
