@@ -8,6 +8,7 @@ from ..trabajador import form_trabajador as ft
 from ..trabajador import pasajeros as p
 from ..trabajador import iti as i
 import yang.correoenvio as correo
+from tkcalendar import DateEntry
 
 
 class pasajes:
@@ -54,14 +55,9 @@ class pasajes:
 
         self.etiqueta_fecha = tk.Label(frame_form_access, text="Inserte la fecha del vuelo deseado", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         self.etiqueta_fecha.pack(fill=tk.X, padx=20, pady=5)
-        self.fechaBuscar = ttk.Entry(frame_form_access, font=('Times', 14))
+        self.fechaBuscar = DateEntry(frame_form_access, font=('Times', 14), date_pattern='DD/MM/YYYY')
         self.fechaBuscar.pack(fill=tk.BOTH, padx=20, pady=10)
-        self.fechaBuscar.insert(0, "formato de fecha: dd-mm-aaaa")
-        self.fechaBuscar.configure(state=tk.DISABLED)
-        def on_click(event):
-            self.fechaBuscar.configure(state=tk.NORMAL)
-            self.fechaBuscar.delete(0, tk.END)
-        self.fechaBuscar.bind("<Button-1>", on_click)
+        
 
         self.etiqueta_tramo = tk.Label(frame_form_access, text="Inserte el origen del tramo", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         self.etiqueta_tramo.pack(fill=tk.X, padx=20, pady=5)
@@ -118,14 +114,9 @@ class pasajes:
         #nueva fecha de nacimiento
         self.etiqueta_nuevaFechaNace = tk.Label(frame_form_access, text="Inserte fecha de nacimiento del pasajero *", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         self.etiqueta_nuevaFechaNace.pack_forget()
-        self.nuevaFechaNacePax = ttk.Entry(frame_form_access, font=('Times', 14))
+        self.nuevaFechaNacePax = DateEntry(frame_form_access, font=('Times', 14), date_pattern='DD/MM/YYYY')
         self.nuevaFechaNacePax.pack_forget()
-        self.nuevaFechaNacePax.insert(0, "formato dd-mm-aaaa")
-        self.nuevaFechaNacePax.configure(state=tk.DISABLED)
-        def on_click(event):
-            self.nuevaFechaNacePax.configure(state=tk.NORMAL)
-            self.nuevaFechaNacePax.delete(0, tk.END)
-        self.nuevaFechaNacePax.bind("<Button-1>", on_click)
+        
 
         #nuevo genero
         self.etiqueta_nuevoGenero = tk.Label(frame_form_access, text="Inserte genero del pasajero", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
@@ -323,6 +314,12 @@ class pasajes:
         etiqueta_codigoVuelo.pack(fill=tk.X, padx=20, pady=5)
         self.pasajeCodVuelo = ttk.Entry(frame_form_access, font=('Times', 14))
         self.pasajeCodVuelo.pack(fill=tk.BOTH, padx=20, pady=10)
+        self.pasajeCodVuelo.insert(0, "Ejemplo: DAP1")
+        self.pasajeCodVuelo.configure(state=tk.DISABLED)
+        def on_click(event):
+            self.pasajeCodVuelo.configure(state=tk.NORMAL)
+            self.pasajeCodVuelo.delete(0, tk.END)
+        self.pasajeCodVuelo.bind("<Button-1>", on_click)
 
         buscarPasajeCod =  tk.Button(frame_form_access, text="Buscar Pasaje", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonVisualizarPasajePorCodVuelo)
         buscarPasajeCod.pack(fill=tk.X, padx=20, pady=20)
@@ -392,6 +389,12 @@ class pasajes:
         etiqueta_documentoPax.pack(fill=tk.X, padx=20, pady=5)
         self.pasajeDocumento = ttk.Entry(frame_form_access, font=('Times', 14))
         self.pasajeDocumento.pack(fill=tk.BOTH, padx=20, pady=10)
+        self.pasajeDocumento.insert(0, "Formato de rut: xxxxxxxx-x")
+        self.pasajeDocumento.configure(state=tk.DISABLED)
+        def on_click(event):
+            self.pasajeDocumento.configure(state=tk.NORMAL)
+            self.pasajeDocumento.delete(0, tk.END)
+        self.pasajeDocumento.bind("<Button-1>", on_click)
 
         buscarPasajeCod =  tk.Button(frame_form_access, text="Buscar Pasaje", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonVisualizarPasajePorDocumento)
         buscarPasajeCod.pack(fill=tk.X, padx=20, pady=20)
@@ -459,15 +462,10 @@ class pasajes:
         
         etiqueta_fechaPasaje = tk.Label(frame_form_access, text="Inserte la fecha a buscar.", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_fechaPasaje.pack(fill=tk.X, padx=20, pady=5)
-        self.pasajeFecha = ttk.Entry(frame_form_access, font=('Times', 14))
+        self.pasajeFecha = DateEntry(frame_form_access, font=('Times', 14), date_pattern='DD/MM/YYYY')
         self.pasajeFecha.pack(fill=tk.BOTH, padx=20, pady=10)
-        self.pasajeFecha.pack(fill=tk.BOTH, padx=20, pady=10)
-        self.pasajeFecha.insert(0, "formato de fecha: dd-mm-aaaa")
-        self.pasajeFecha.configure(state=tk.DISABLED)
-        def on_click(event):
-            self.pasajeFecha.configure(state=tk.NORMAL)
-            self.pasajeFecha.delete(0, tk.END)
-        self.pasajeFecha.bind("<Button-1>", on_click)
+       
+        
 
         buscarPasajeCod =  tk.Button(frame_form_access, text="Buscar Pasaje", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonVisualizarPasajePorFecha)
         buscarPasajeCod.pack(fill=tk.X, padx=20, pady=20)
@@ -538,6 +536,12 @@ class pasajes:
         etiqueta_ventaPasaje.pack(fill=tk.X, padx=20, pady=5)
         self.pasajeNumVenta = ttk.Entry(frame_form_access, font=('Times', 14))
         self.pasajeNumVenta.pack(fill=tk.BOTH, padx=20, pady=10)
+        self.pasajeNumVenta.insert(0, "Ejemplo: NVENTA1")
+        self.pasajeNumVenta.configure(state=tk.DISABLED)
+        def on_click(event):
+            self.pasajeNumVenta.configure(state=tk.NORMAL)
+            self.pasajeNumVenta.delete(0, tk.END)
+        self.pasajeNumVenta.bind("<Button-1>", on_click)
 
         buscarPasajeCod =  tk.Button(frame_form_access, text="Buscar Pasaje", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonVisualizarPasajePorVenta)
         buscarPasajeCod.pack(fill=tk.X, padx=20, pady=20)
@@ -612,6 +616,12 @@ class pasajes:
         etiqueta_numVenta.pack(fill=tk.X, padx=20, pady=5)
         self.anularVentaPasaje = ttk.Entry(frame_form_access, font=('Times', 14))
         self.anularVentaPasaje.pack(fill=tk.BOTH, padx=20, pady=10)
+        self.anularVentaPasaje.insert(0, "Ejemplo: NVENTA1")
+        self.anularVentaPasaje.configure(state=tk.DISABLED)
+        def on_click(event):
+            self.anularVentaPasaje.configure(state=tk.NORMAL)
+            self.anularVentaPasaje.delete(0, tk.END)
+        self.anularVentaPasaje.bind("<Button-1>", on_click)
 
         deleteVenta =  tk.Button(frame_form_access, text="Anular venta", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonAnularVenta)
         deleteVenta.pack(fill=tk.X, padx=20, pady=20)

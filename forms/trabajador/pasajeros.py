@@ -5,6 +5,7 @@ import conexion
 import util.generic as utl
 from ..trabajador import form_trabajador as ft
 from forms import form_login as fl
+from tkcalendar import DateEntry
 
 
 
@@ -294,14 +295,9 @@ class trabajador:
         frame_form_label4.pack(side="top", expand=tk.YES, fill=tk.NONE)
 
         #String para el textvariable
-        self.modNacimiento = ttk.Entry(frame_form_label4, font=('Times', 14))
+        self.modNacimiento = DateEntry(frame_form_label4, font=('Times', 14), date_pattern='DD/MM/YYYY')
         self.modNacimiento.pack(padx=20, pady=20, side='left')
-        self.modNacimiento.insert(0, "Formato: dd-mm-aaaa")
-        self.modNacimiento.configure(state=tk.DISABLED)
-        def on_click(event):
-            self.modNacimiento.configure(state=tk.NORMAL)
-            self.modNacimiento.delete(0, tk.END)
-        self.modNacimiento.bind("<Button-1>", on_click)
+        
         #boton nacimiento
         modNacimientoPax =  tk.Button(frame_form_label4, text="Modificar Fecha Nacimiento", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonModNacimiento)
         modNacimientoPax.pack(padx=20, pady=20, side='left')

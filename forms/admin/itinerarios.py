@@ -7,6 +7,7 @@ import util.generic as utl
 from ..admin import form_admin as fa
 from ..admin import usuarios as u
 from forms import form_login as fl
+from tkcalendar import DateEntry
 
 
 #  ITINERARIOS
@@ -110,6 +111,12 @@ class itinera:
         etiqueta_codigoVuelo.pack(fill=tk.X, padx=20, pady=5)
         self.codVueloBuscar = ttk.Entry(frame_form_access, font=('Times', 14))
         self.codVueloBuscar.pack(fill=tk.BOTH, padx=20, pady=10)
+        self.codVueloBuscar.insert(0, "Ejemplo: DAP1")
+        self.codVueloBuscar.configure(state=tk.DISABLED)
+        def on_click(event):
+            self.codVueloBuscar.configure(state=tk.NORMAL)
+            self.codVueloBuscar.delete(0, tk.END)
+        self.codVueloBuscar.bind("<Button-1>", on_click)
 
         buscarCodigoVuelo =  tk.Button(frame_form_access, text="Buscar Vuelo", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonBuscarCodigoVuelo)
         buscarCodigoVuelo.pack(fill=tk.X, padx=20, pady=20)
@@ -171,14 +178,9 @@ class itinera:
         #SOLICITUD DEl codigo del vuelo a consultar
         etiqueta_fechaVuelo = tk.Label(frame_form_access, text="Inserte la fecha del vuelo a buscar", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_fechaVuelo.pack(fill=tk.X, padx=20, pady=5)
-        self.fechaVueloBuscar = ttk.Entry(frame_form_access, font=('Times', 14))
+        self.fechaVueloBuscar = DateEntry(frame_form_access, font=('Times', 14), date_pattern='DD/MM/YYYY')
         self.fechaVueloBuscar.pack(fill=tk.BOTH, padx=20, pady=10)
-        self.fechaVueloBuscar.insert(0, "Formato de fecha: DD-MM-AAA")
-        self.fechaVueloBuscar.configure(state=tk.DISABLED)
-        def on_click(event):
-            self.fechaVueloBuscar.configure(state=tk.NORMAL)
-            self.fechaVueloBuscar.delete(0, tk.END)
-        self.fechaVueloBuscar.bind("<Button-1>", on_click)
+        
 
         buscarFechaVuelo =  tk.Button(frame_form_access, text="Buscar Vuelo", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonBuscarFechaVuelo)
         buscarFechaVuelo.pack(fill=tk.X, padx=20, pady=20)
@@ -250,9 +252,9 @@ class itinera:
         self.destinoVuelo.pack(fill=tk.BOTH, padx=20, pady=10)
 
         #Inserción de fecha de Ida, con un Entry para ser capturado en la función mas adelante.
-        etiqueta_fechaIda = tk.Label(frame_form_access, text="Inserte la Fecha de Ida del vuelo, formato MM-DD-AAAA", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        etiqueta_fechaIda = tk.Label(frame_form_access, text="Inserte la Fecha de Ida del vuelo", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_fechaIda.pack(fill=tk.X, padx=20, pady=5)
-        self.fechaIda = ttk.Entry(frame_form_access, font=('Times', 14))
+        self.fechaIda = DateEntry(frame_form_access, font=('Times', 14), date_pattern='DD/MM/YYYY')
         self.fechaIda.pack(fill=tk.BOTH, padx=20, pady=10)
 
         #inserción de la hora de Ida del vuelo, con un Entry.
@@ -306,6 +308,12 @@ class itinera:
         etiqueta_idItin.pack(fill=tk.X, padx=20, pady=5)
         self.idModificarItin = ttk.Entry(frame_form_access, font=('Times', 14))
         self.idModificarItin.pack(fill=tk.BOTH, padx=20, pady=10)
+        self.idModificarItin.insert(0, "Ejemplo: DAP1")
+        self.idModificarItin.configure(state=tk.DISABLED)
+        def on_click(event):
+            self.idModificarItin.configure(state=tk.NORMAL)
+            self.idModificarItin.delete(0, tk.END)
+        self.idModificarItin.bind("<Button-1>", on_click)
 
         #frame separaador para el origen
         frame_form_label1 = tk.Frame(frame_form_access, height= 50, bd=0, relief=tk.SOLID, bg ='#fcfcfc')
@@ -348,14 +356,9 @@ class itinera:
         frame_form_label3.pack(side="top", expand=tk.YES, fill=tk.NONE)
 
         
-        self.modFechaIda = ttk.Entry(frame_form_label3, font=('Times', 14))
+        self.modFechaIda = DateEntry(frame_form_label3, font=('Times', 14), date_pattern='DD/MM/YYYY')
         self.modFechaIda.pack(padx=20, pady=20, side='left')
-        self.modFechaIda.insert(0, "Ingresar nueva fecha")
-        self.modFechaIda.configure(state=tk.DISABLED)
-        def on_click(event):
-            self.modFechaIda.configure(state=tk.NORMAL)
-            self.modFechaIda.delete(0, tk.END)
-        self.modFechaIda.bind("<Button-1>", on_click)
+        
         #boton fecha itinerario
         modfechaIdaItin =  tk.Button(frame_form_label3, text="Modificar Fecha", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonModFecha)
         modfechaIdaItin.pack(padx=20, pady=20, side='left')
@@ -441,7 +444,7 @@ class itinera:
         labelLogo.pack(fill=tk.X, padx=20, pady=10)
 
         #SOLICITUD DE LA ID DEL USUARIO A MODIFICAR
-        etiqueta_idItin = tk.Label(frame_form_access, text="Inserte ID de Vuelo a Cancelar", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        etiqueta_idItin = tk.Label(frame_form_access, text="Inserte el código de Vuelo a Cancelar", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_idItin.pack(fill=tk.X, padx=20, pady=5)
         self.idEliminarItinerario = ttk.Entry(frame_form_access, font=('Times', 14))
         self.idEliminarItinerario.pack(fill=tk.BOTH, padx=20, pady=10)

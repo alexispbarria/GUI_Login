@@ -110,11 +110,12 @@ class User:
     
 
         #Inserción de contraseña, con un Entry para escribir
-        etiqueta_contrasena = tk.Label(frame_form_access, text="Inserte Contraseña", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        etiqueta_contrasena = tk.Label(frame_form_access, text="Inserte Contraseña (mínimo 4 caracteres)", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_contrasena.pack(fill=tk.X, padx=20, pady=5)
         self.contra = ttk.Entry(frame_form_access, font=('Times', 14))
         self.contra.pack(fill=tk.BOTH, padx=20, pady=10)
         self.contra.config(show="*")
+        
         
 
         agregar = tk.Button(frame_form_access, text="Agregar Usuario", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonAgregar)
@@ -160,6 +161,12 @@ class User:
         etiqueta_id.pack(fill=tk.X, padx=20, pady=5)
         self.idModificarUser = ttk.Entry(frame_form_access, font=('Times', 14))
         self.idModificarUser.pack(fill=tk.BOTH, padx=20, pady=10)
+        self.idModificarUser.insert(0, "Ejemplo: User1")
+        self.idModificarUser.configure(state=tk.DISABLED)
+        def on_click(event):
+            self.idModificarUser.configure(state=tk.NORMAL)
+            self.idModificarUser.delete(0, tk.END)
+        self.idModificarUser.bind("<Button-1>", on_click)
 
         etiqueta_nombreUsuario = tk.Label(frame_form_access, text="Modificar Nombre de Usuario (opcional)", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_nombreUsuario.pack(fill=tk.X, padx=20, pady=5)
@@ -171,7 +178,7 @@ class User:
         modNomUsuario.bind("<Return>", (lambda event: self.botonModificarNomUsu()))
 
 
-        etiqueta_contrasena = tk.Label(frame_form_access, text="Modificar Contraseña (opcional)", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        etiqueta_contrasena = tk.Label(frame_form_access, text="Modificar Contraseña (mínimo 4 caracteres)", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_contrasena.pack(fill=tk.X, padx=20, pady=5)
         self.modContrasena = ttk.Entry(frame_form_access, font=('Times', 14))
         self.modContrasena.pack(fill=tk.BOTH, padx=20, pady=10)
