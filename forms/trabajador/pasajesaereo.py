@@ -58,17 +58,12 @@ class pasajes:
         self.fechaBuscar = DateEntry(frame_form_access, font=('Times', 14), date_pattern='DD/MM/YYYY')
         self.fechaBuscar.pack(fill=tk.BOTH, padx=20, pady=10)
         
-
+        self.valorOrigenVerificar = tk.StringVar()
         self.etiqueta_tramo = tk.Label(frame_form_access, text="Inserte el origen del tramo", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         self.etiqueta_tramo.pack(fill=tk.X, padx=20, pady=5)
-        self.buscarTramo = ttk.Entry(frame_form_access, font=('Times', 14))
+        self.buscarTramo = ttk.OptionMenu(frame_form_access, self.valorOrigenVerificar, 'Seleccionar origen', 'Punta Arenas', 'Porvenir')
         self.buscarTramo.pack(fill=tk.BOTH, padx=20, pady=10)
-        self.buscarTramo.insert(0, "Porvenir / Punta Arenas")
-        self.buscarTramo.configure(state=tk.DISABLED)
-        def on_click(event):
-            self.buscarTramo.configure(state=tk.NORMAL)
-            self.buscarTramo.delete(0, tk.END)
-        self.buscarTramo.bind("<Button-1>", on_click)
+        
         
 
         #boton verificar
@@ -119,9 +114,10 @@ class pasajes:
         
 
         #nuevo genero
-        self.etiqueta_nuevoGenero = tk.Label(frame_form_access, text="Inserte genero del pasajero", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
+        self.valorGeneroPax = tk.StringVar()
+        self.etiqueta_nuevoGenero = tk.Label(frame_form_access, text="Inserte genero del pasajero *", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         self.etiqueta_nuevoGenero.pack_forget()
-        self.nuevoGeneroPax = ttk.Entry(frame_form_access, font=('Times', 14))
+        self.nuevoGeneroPax = ttk.OptionMenu(frame_form_access, self.valorGeneroPax, 'Seleccione un genero', 'Masculino', 'Femenino', 'Otro')
         self.nuevoGeneroPax.pack_forget()
 
         #nuevo mail
@@ -756,14 +752,14 @@ class pasajes:
         db = conexion.get_db()
 
         fechaVuelo = self.fechaBuscar.get()
-        tramo = self.buscarTramo.get()
+        tramo = self.valorOrigenVerificar.get()
         tramom = tramo.lower()
         tramoc = tramom.capitalize()
 
         #Verificación de la disponibilidad en la base de datos
         verificar = db.itinerarios.find({"fechaIda": fechaVuelo, "origen": {"$regex": tramoc, "$options": "i"}})
 
-        if fechaVuelo == "" or fechaVuelo == "formato de fecha: dd-mm-aaa" or tramoc == "" or tramoc == "Porvenir / Punta arenas":
+        if fechaVuelo == ""  or tramoc == "" or tramoc == "Seleccionar origen":
             messagebox.showerror(message="Ingrese una fecha y origen de vuelo")
         else:
             for x in verificar:
@@ -847,7 +843,7 @@ class pasajes:
         db = conexion.get_db()
 
         fechaVuelo = self.fechaBuscar.get()
-        tramo = self.buscarTramo.get()
+        tramo = self.valorOrigenVerificar.get()
         tramom = tramo.lower()
         tramoc = tramom.capitalize()
         documento = self.buscarDocumento.get()
@@ -926,13 +922,13 @@ class pasajes:
                         #nueva fecha de nacimiento                        
                         fechaNace = self.nuevaFechaNacePax.get()
                         #nuevo genero                     
-                        genero = self.nuevoGeneroPax.get()
+                        genero = self.valorGeneroPax.get()
                         #nuevo mail
                         email = self.nuevoEmailPax.get()
                         #nuevo fono
                         telefono = self.nuevoFonoPax.get()            
 
-                        if nombrePaxc == "" or apellidoPaxc == "" or nacionalidad == "" or fechaNace == "" or fechaNace == "formato dd-mm-aaaa" or email == "":
+                        if nombrePaxc == "" or apellidoPaxc == "" or nacionalidad == "" or fechaNace == "" or email == "" or genero == "" or genero == "Seleccione un genero":
                             messagebox.showerror(message="No puede insertar valores vacíos dentro de campos obligatorios\nLos campos obligatorios cuentan con un (*) en su texto.", title="Error")
                             return
                         else:
@@ -1005,13 +1001,13 @@ class pasajes:
                 #nueva fecha de nacimiento                        
                 fechaNace = self.nuevaFechaNacePax.get()
                 #nuevo genero                     
-                genero = self.nuevoGeneroPax.get()
+                genero = self.valorGeneroPax.get()
                 #nuevo mail
                 email = self.nuevoEmailPax.get()
                 #nuevo fono
                 telefono = self.nuevoFonoPax.get()            
 
-                if nombrePaxc == "" or apellidoPaxc == "" or nacionalidad == "" or fechaNace == "" or fechaNace == "formato dd-mm-aaaa" or email == "":
+                if nombrePaxc == "" or apellidoPaxc == "" or nacionalidad == "" or fechaNace == "" or email == "" or genero == "" or genero == "Seleccione un genero":
                     messagebox.showerror(message="No puede insertar valores vacíos dentro de campos obligatorios\nLos campos obligatorios cuentan con un (*) en su texto.", title="Error")
                     return
                 else:

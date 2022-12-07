@@ -238,17 +238,18 @@ class itinera:
         labelLogo = tk.Label(frame_form_access, image=logo, bg='#fcfcfc')
         labelLogo.pack(fill=tk.X, padx=20, pady=10)
 
-        
+        self.valororigen = tk.StringVar()
+        self.valordestino =tk.StringVar()
         #Inserción del origen del vuelo, con un Entry para escribir
         etiqueta_origenVuelo = tk.Label(frame_form_access, text="Inserte Origen del Vuelo", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_origenVuelo.pack(fill=tk.X, padx=20, pady=5)
-        self.origenVuelo = ttk.Entry(frame_form_access, font=('Times', 14))
+        self.origenVuelo = ttk.OptionMenu(frame_form_access, self.valororigen, 'Seleccionar origen', 'Punta Arenas', 'Porvenir')
         self.origenVuelo.pack(fill=tk.BOTH, padx=20, pady=10)
 
         #Inserción de destino del vuelo, con un Entry para escribir
         etiqueta_destinoVuelo = tk.Label(frame_form_access, text="Inserte Destino del Vuelo", font=('Times', 14), fg="#666a88", bg="#fcfcfc", anchor="w")
         etiqueta_destinoVuelo.pack(fill=tk.X, padx=20, pady=5)
-        self.destinoVuelo = ttk.Entry(frame_form_access, font=('Times', 14))
+        self.destinoVuelo = ttk.OptionMenu(frame_form_access, self.valordestino, 'Seleccionar destino', 'Porvenir', 'Punta Arenas')
         self.destinoVuelo.pack(fill=tk.BOTH, padx=20, pady=10)
 
         #Inserción de fecha de Ida, con un Entry para ser capturado en la función mas adelante.
@@ -319,15 +320,10 @@ class itinera:
         frame_form_label1 = tk.Frame(frame_form_access, height= 50, bd=0, relief=tk.SOLID, bg ='#fcfcfc')
         frame_form_label1.pack(side="top", expand=tk.YES, fill=tk.NONE)
 
-        
-        self.modOrigen = ttk.Entry(frame_form_label1, font=('Times', 14))
+        self.valorOrigenModificar = tk.StringVar()
+        self.modOrigen = ttk.OptionMenu(frame_form_label1, self.valorOrigenModificar, 'Seleccionar origen', 'Punta Arenas', 'Porvenir')
         self.modOrigen.pack(padx=20, pady=20, side='left')
-        self.modOrigen.insert(0, "Ingresar nuevo origen")
-        self.modOrigen.configure(state=tk.DISABLED)
-        def on_click(event):
-            self.modOrigen.configure(state=tk.NORMAL)
-            self.modOrigen.delete(0, tk.END)
-        self.modOrigen.bind("<Button-1>", on_click)
+        
         #boton origen itinerario
         modOrigenItin =  tk.Button(frame_form_label1, text="Modificar Origen", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonModOrigen)
         modOrigenItin.pack(padx=20, pady=20, side='left')
@@ -337,15 +333,10 @@ class itinera:
         frame_form_label2 = tk.Frame(frame_form_access, height= 50, bd=0, relief=tk.SOLID, bg ='#fcfcfc')
         frame_form_label2.pack(side="top", expand=tk.YES, fill=tk.NONE)
 
-        
-        self.modDestinoItinerario = ttk.Entry(frame_form_label2, font=('Times', 14))
+        self.valorDestinoModificar = tk.StringVar()
+        self.modDestinoItinerario = ttk.OptionMenu(frame_form_label2, self.valorDestinoModificar, 'Seleccionar destino', 'Porvenir', 'Punta Arenas')
         self.modDestinoItinerario.pack(padx=20, pady=20, side='left')
-        self.modDestinoItinerario.insert(0, "Ingresar nuevo destino")
-        self.modDestinoItinerario.configure(state=tk.DISABLED)
-        def on_click(event):
-            self.modDestinoItinerario.configure(state=tk.NORMAL)
-            self.modDestinoItinerario.delete(0, tk.END)
-        self.modDestinoItinerario.bind("<Button-1>", on_click)
+        
         #boton destino itinerario
         modDestinoItin =  tk.Button(frame_form_label2, text="Modificar Destino", font=('Times', 14, BOLD), bg='#3a7ff6', bd=0, fg="#fff", command=self.botonModDestino)
         modDestinoItin.pack(padx=20, pady=20, side='left')
@@ -601,10 +592,10 @@ class itinera:
     def botonAgregarItinerario(self):
         db = conexion.get_db()
 
-        origen = self.origenVuelo.get()
+        origen = self.valororigen.get()
         origenm = origen.lower()
         origenc = origenm.capitalize()
-        destino = self.destinoVuelo.get()
+        destino = self.valordestino.get()
         destinom = destino.lower()
         destinoc = destinom.capitalize()
         fechaVuelo = self.fechaIda.get()
@@ -627,12 +618,15 @@ class itinera:
             itinOrigen = (str.format(itin["origen"]))
 
             if origenc == itinOrigen and fechaVuelo == itinfecha:
-                    messagebox.showerror(message="Ya existe un vuelo en el origen y fecha ingresado.", title="Error")
-                    return itinerarios
+                messagebox.showerror(message="Ya existe un vuelo en el origen y fecha ingresado.", title="Error")
+                return itinerarios
+            if origenc == destinoc:
+                messagebox.showerror(message="El origen y destino no puede ser el mismo.", title="Error")
+                return itinerarios
             else:
                     idVuelo = len(Idlist)+1
                     idVuelo = (f"DAP{idVuelo}")
-                    if origenc == "" or destinoc == "" or fechaVuelo == "" or hora == "":
+                    if origenc == "" or origenc == 'Seleccionar origen' or destinoc == 'Seleccionar destino' or destinoc == "" or fechaVuelo == "" or hora == "":
                         messagebox.showerror(message="No se pueden insertar valores vacíos", title="Error")
                         return itinerarios
                     else:
@@ -682,14 +676,14 @@ class itinera:
         db = conexion.get_db()
         idVuelo = self.idModificarItin.get()
         uidVuelo = idVuelo.upper()
-        origen = self.modOrigen.get()
+        origen = self.valorOrigenModificar.get()
         origenm = origen.lower()
         origenc = origenm.capitalize()
         itinerarios = db.itinerarios.find({})
         for itin in itinerarios:
             itinid = (str.format(itin["_id"]))
-            if origen == "" or origen == "Ingresar nuevo origen":
-                messagebox.showinfo(message="No se puede insertar un origen vacío", title="Error")
+            if origen == "" or origen == "Seleccionar origen":
+                messagebox.showerror(message="No se puede insertar un origen vacío", title="Error")
                 return
             if uidVuelo == itinid: 
                 moditin = db.itinerarios.update_one(
@@ -712,19 +706,19 @@ class itinera:
                 self.abrirModificarItinerario()
                 return moditin, pasaje
         else:
-            messagebox.showinfo(message="El ID ingresado no existe", title="Error")
+            messagebox.showerror(message="El ID ingresado no existe", title="Error")
 
     def botonModDestino(self):
         db = conexion.get_db()
         idVuelo = self.idModificarItin.get()
         uidVuelo = idVuelo.upper()
-        destino = self.modDestinoItinerario.get()
+        destino = self.valorDestinoModificar.get()
         destinom = destino.lower()
         destinoc = destinom.capitalize()
         itinerarios = db.itinerarios.find({})
         for itin in itinerarios:
             itinid = (str.format(itin["_id"]))
-            if destinoc == "" or destino == "Ingresar nuevo destino":
+            if destinoc == "" or destino == "Seleccionar destino":
                 messagebox.showinfo(message="No se puede insertar un destino vacío", title="Error")
                 return
             if uidVuelo == itinid: 
