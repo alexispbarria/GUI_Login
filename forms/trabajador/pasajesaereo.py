@@ -767,6 +767,9 @@ class pasajes:
                 if x["disponibilidad"] <=0:
                     messagebox.showerror(message="Sin disponibilidad para dicha fecha y tramo.", title="Error")
                     return verificar
+                if x["estadoVuelo"] == "Cancelado":
+                    messagebox.showerror(message="El vuelo solicitado se encuentra cancelado.", title="Error")
+                    return verificar
                 else:
                     
                     messagebox.showinfo(message=f"En el tramo {x['origen']}-{x['destino']} existe un total de {x['disponibilidad']} asientos disponibles.\nSu valor es de ${x['valorTramo']}", title="Felicidades")
