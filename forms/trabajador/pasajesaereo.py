@@ -758,18 +758,21 @@ class pasajes:
 
         #Verificación de la disponibilidad en la base de datos
         verificar = db.itinerarios.find({"fechaIda": fechaVuelo, "origen": {"$regex": tramoc, "$options": "i"}})
-
+        listav = []
         if fechaVuelo == ""  or tramoc == "" or tramoc == "Seleccionar origen":
             messagebox.showerror(message="Ingrese una fecha y origen de vuelo")
+            return
+        
         else:
             for x in verificar:
-
+                listav.append(x)
                 if x["disponibilidad"] <=0:
                     messagebox.showerror(message="Sin disponibilidad para dicha fecha y tramo.", title="Error")
                     return verificar
                 if x["estadoVuelo"] == "Cancelado":
                     messagebox.showerror(message="El vuelo solicitado se encuentra cancelado.", title="Error")
                     return verificar
+                
                 else:
                     
                     messagebox.showinfo(message=f"En el tramo {x['origen']}-{x['destino']} existe un total de {x['disponibilidad']} asientos disponibles.\nSu valor es de ${x['valorTramo']}", title="Felicidades")
@@ -779,6 +782,9 @@ class pasajes:
                         #ocultar y mostrar botón de volver atrás
                     self.volver.pack_forget()
                     self.volver.pack(fill=tk.X, padx=20, pady=20)
+        if len(listav) == 0:
+            messagebox.showerror(message="No se encuentra itinerario con la fecha y origen ingresados.", title="Error")
+            return
 
 
 
