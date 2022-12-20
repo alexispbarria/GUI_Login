@@ -396,6 +396,7 @@ class User:
                     return moduser
         else:
             messagebox.showinfo(message="El id del user no existe", title="Error")
+            return
 
     def botonModificarContrasenaUsu(self):
         db = conexion.get_db()
@@ -431,6 +432,7 @@ class User:
                         return moduser
         else:
             messagebox.showinfo(message="El id del user no existe", title="Error")
+            return
 
 
 #tambien se ingresa el cancelar o aceptar al eliminar
@@ -451,3 +453,4 @@ class User:
                     self.abrirEliminarUsuario()
         else:
             messagebox.showinfo(message="El id del user no existe", title="Error")
+            return
